@@ -1,0 +1,111 @@
+<app-nav></app-nav>
+<figure class="text-center">
+  <h1 class="display-6">Managers' Page</h1>
+  <!-- <hr style="width:100%", size="3", color=black> -->
+</figure>
+<div class="text-center"> 
+    <mat-form-field appearance="fill">
+        <mat-label>View Employees</mat-label>
+        <mat-select>
+            <mat-option value="one">View All</mat-option>
+            <mat-option value="two">View By Id</mat-option>
+            <input matInput placeholder="Ex. Pizza" value="Sushi">
+          </mat-select>
+      </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>View Reimbursements</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="getReimbsByStatus(selectedStatus)">
+          <mat-option *ngFor="let status of statusDescription" [value] = status.name>
+            {{status.name | titlecase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Review Reimbursements</mat-label>
+    <mat-select>
+        <input matInput placeholder="Ex. Pizza" value="Insert Reimbursement Id">
+      </mat-select>
+  </mat-form-field>
+
+</div>
+<br>
+<!-- <div *ngIf = 'selectedReimbs.length > 0'>
+    <table class="table table-striped table-hover">  
+    <tr >   
+        <th>ReimbId</th> <th>Amount</th>  <th>Description</th> <th>Receipt</th>
+        <th>DateResolved</th> <th>DateSubmitted</th>  <th>Author</th> <th>Resolver</th>
+        <th>Status</th> <th>Type</th>  
+    </tr>  
+     <tr  *ngFor="let reimb of selectedReimbs">
+        <td>{{reimb.reimbId}}</td> 
+        <td>{{reimb.reimbAmount}}</td>
+        <td>{{reimb.reimbDescription}}</td>
+        <td>{{reimb.reimbReceipt}}</td>
+        <td>{{reimb.reimbResolved}}</td>
+        <td>{{reimb.reimbSubmitted}}</td>
+        <td>{{reimb.reimbAuthor}}</td>
+        <td>{{reimb.reimbResolver}}</td>
+        <td>{{reimb.reimbStatus}}</td>
+        <td>{{reimb.reimbType}}</td>
+    </tr>  
+      
+</table>  
+</div> -->
+<div *ngIf = 'selectedReimbs.length > 0'>
+<mat-table [dataSource]="selectedReimbs" class="mat-elevation-z8">
+    <ng-container matColumnDef="reimbId">
+        <mat-header-cell *matHeaderCellDef> ReimbId </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbId}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbAmount">
+        <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbAmount}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbDescription">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbDescription}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbReceipt">
+        <mat-header-cell *matHeaderCellDef> Receipt </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbReceipt}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbResolved">
+        <mat-header-cell *matHeaderCellDef> DateResolved </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbResolved}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbSubmitted">
+        <mat-header-cell *matHeaderCellDef> DateSubmitted </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbSubmitted}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbAuthor">
+        <mat-header-cell *matHeaderCellDef> Author </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbAuthor}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbResolver">
+        <mat-header-cell *matHeaderCellDef> Resolver </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbResolver}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbStatus">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbStatus}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reimbType">
+        <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+        <mat-cell *matCellDef="let reimb"> {{reimb.reimbType}} </mat-cell>
+    </ng-container>
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+          <!-- <tr
+          mat-row
+          (click)="clickedRows.add(row)"
+          [class.demo-row-is-clicked]="clickedRows.has(row)"
+          *matRowDef="let row; columns: displayedColumns;"
+        ></tr>  -->
+</mat-table>
+
+</div>
+<div id="newButton"></div>
+<div id="error-div"></div>
+<div id="savedData"></div>
